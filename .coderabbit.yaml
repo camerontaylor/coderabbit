@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://www.coderabbit.ai/integrations/schema.v2.json
+# Shared defaults for camerontaylor repositories. See README.md for adoption.
+# Stop here rather than silently inheriting mutable repository/org UI defaults.
+inheritance: false
+language: en-US
+early_access: false
+tone_instructions: >-
+  Be concise and technical; cite file:line and concrete impact. Prefer a few
+  high-confidence findings. Prioritize correctness, security, API compatibility,
+  and data integrity. Skip style commentary already enforced by repository gates.
+reviews:
+  profile: chill
+  # Advisory feedback: deterministic CI and repository rules enforce merging.
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  poem: false
+  in_progress_fortune: false
+  # Preserve actionable prompts for agent-assisted review addressing.
+  enable_prompt_for_ai_agents: true
+  auto_review:
+    enabled: true
+    # One initial automatic review; later pushes require an explicit request.
+    # This is not a hard cap: manual review commands can run additional reviews.
+    auto_incremental_review: false
+    drafts: false
+    # The default branch is always included; also cover our queue convention.
+    base_branches:
+      - ^merge-queue$
+    ignore_title_keywords:
+      - WIP
+      - do-not-review
+  # Exclude only unambiguous dependencies, coverage, and agent runtime scratch.
+  # Keep lockfiles, manifests, tests, and workflows visible. Build output paths
+  # such as dist/ can be authored or shipped in some repos; filter those locally.
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/coverage/**"
+    - "!.gjc/**"
+    - "!.zcode/**"
+    - "!.paseo/**"
+    - "!.claude/worktrees/**"
+  path_instructions:
+    - path: "**/*"
+      instructions: >-
+        Follow applicable repository guidelines. Report concrete defects with
+        their triggering conditions and impact; distinguish evidence from
+        assumptions. Check compatibility of public interfaces, error handling,
+        untrusted inputs, and resource cleanup where relevant. Do not recommend
+        weakening checks, widening baselines, or skipping tests to hide failures.
+        Avoid speculative abstractions and unrelated refactors.
+    - path: "**/*{test,spec}*"
+      instructions: >-
+        For test files, prioritize assertions of externally observable behavior,
+        regressions, and meaningful failure cases. Flag false positives and
+        nondeterminism with concrete evidence. Do not demand tests that merely
+        duplicate implementation or cosmetic fixture changes.
+    - path: ".github/workflows/*"
+      instructions: >-
+        Check least-privilege permissions, untrusted PR inputs, credential
+        exposure, and unsafe execution of fork code. Prefer immutable action
+        references and persist-credentials: false for checkout in jobs that run
+        repository code. Required checks must report reliably for every PR they
+        protect. Respect repository-specific workflow generation conventions.
+chat:
+  art: false
+knowledge_base:
+  code_guidelines:
+    # Discover each repository's own AGENTS.md, CLAUDE.md, and other guidelines.
+    enabled: true

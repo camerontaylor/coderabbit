@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=https://www.coderabbit.ai/integrations/schema.v2.json
+# Copy to .coderabbit.yaml in a consuming repo, or add inheritance to its existing
+# config. Keep repository-specific instructions; local values override central.
+inheritance: true
