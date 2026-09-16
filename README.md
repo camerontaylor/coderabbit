@@ -36,7 +36,7 @@ review behavior when moving your first draft to ready for review.
 
 ## Enable and verify
 
-1. Ensure the CodeRabbit GitHub App can access this private repository and the
+1. Ensure the CodeRabbit GitHub App can access this repository and the
    repositories to review. An installation covering all repositories should
    include it; a selected-repositories installation must add `coderabbit`.
    Manage access at <https://github.com/settings/installations>.
@@ -80,7 +80,7 @@ These local validation commands do not require a CodeRabbit login. Keep the
 config small; use repository-specific YAML for language tools, generated paths,
 architecture constraints, or stricter review profiles.
 
-Recommended GitHub settings for this configuration repository: private visibility,
+Recommended GitHub settings for this configuration repository: public visibility,
 squash merges, delete merged branches, and disable unused wiki/projects. Keep
 issues enabled for policy discussions. Add branch protection and a required
 schema-validation check when a CI validator is established; do not require a
